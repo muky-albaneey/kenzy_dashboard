@@ -16,7 +16,7 @@ With TailAdmin, you get access to all the necessary dashboard UI components, ele
 ### TailAdmin React PRO vs TailAdmin React FREE Comparison 📊
 
 #### [TailAdmin React PRO](https://react-demo.tailadmin.com/)
-- 4 Unique Dashboards: Analytics, Ecommerce, Marketing, and CRM (More will be added)
+- 5 Unique Dashboards: Analytics, Ecommerce, Marketing, and CRM (More will be added)
 - 120+ Dashboard UI Components
 - 200+ Total UI Elements
 - 45+ HTML Files
@@ -75,7 +75,14 @@ React and Tailwind are two popular technologies that have taken the web developm
 
 ## Update Logs
 
-### Version 1.0.6 - [Jan 31, 2024]
+### Version 1.3.7 - [June 20, 2024]
+
+#### Enhancements
+
+- **Enhancement 01:** Remove Repetition of DefaultLayout in every Pages
+- **Enhancement 02:** Add ClickOutside Component for reduce repeated functionality in Header Message, Notification and User Dropdowns.
+
+### Version 1.3.6 - [Jan 31, 2024]
 
 #### Enhancements
 
@@ -85,7 +92,7 @@ React and Tailwind are two popular technologies that have taken the web developm
 - **Enhancement 04:** Make best value editable [Pricing Table One/Pricing Table].
 - **Enhancement 05:** Rearrange Folder structure.
 
-### Version 1.0.0 - [Apr 28, 2023]
+### Version 1.2.0 - [Apr 28, 2023]
 
 - Add Typescript in TailAdmin React.
 
