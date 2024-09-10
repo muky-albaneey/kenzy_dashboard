@@ -43,7 +43,7 @@ function App() {
             </>
           }
         />
-        <Route
+        {/* <Route
           path="/calendar"
           element={
             <>
@@ -51,7 +51,7 @@ function App() {
               <Calendar />
             </>
           }
-        />
+        /> */}
         <Route
           path="/profile"
           element={
@@ -79,7 +79,7 @@ function App() {
             </>
           }
         />
-        <Route
+        {/* <Route
           path="/tables"
           element={
             <>
@@ -87,7 +87,7 @@ function App() {
               <Tables />
             </>
           }
-        />
+        /> */}
         <Route
           path="/settings"
           element={
@@ -97,7 +97,7 @@ function App() {
             </>
           }
         />
-        <Route
+        {/* <Route
           path="/chart"
           element={
             <>
@@ -123,7 +123,7 @@ function App() {
               <Buttons />
             </>
           }
-        />
+        /> */}
         <Route
           path="/auth/signin"
           element={
