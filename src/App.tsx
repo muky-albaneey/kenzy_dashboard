@@ -70,7 +70,7 @@ function App() {
             </>
           }
         />
-        <Route
+        {/* <Route
           path="/forms/form-layout"
           element={
             <>
@@ -78,7 +78,7 @@ function App() {
               <FormLayout />
             </>
           }
-        />
+        /> */}
         <Route
           path="/tables"
           element={
