@@ -339,10 +339,10 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                                 (isActive && '!text-white')
                               }
                             >
-                              Form Elements
+                              Uploads Products
                             </NavLink>
                           </li>
-                          <li>
+                          {/* <li>
                             <NavLink
                               to="/forms/form-layout"
                               className={({ isActive }) =>
@@ -352,7 +352,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                             >
                               Form Layout
                             </NavLink>
-                          </li>
+                          </li> */}
                         </ul>
                       </div>
                       {/* <!-- Dropdown Menu End --> */}
