@@ -305,7 +305,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                             fill="white"
                           />
                         </svg>
-                        Forms
+                        Products
                         <svg
                           className={`absolute right-4 top-1/2 -translate-y-1/2 fill-current ${
                             open && 'rotate-180'
@@ -342,17 +342,17 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                               Uploads Products
                             </NavLink>
                           </li>
-                          {/* <li>
+                          <li>
                             <NavLink
-                              to="/forms/form-layout"
+                              to="/forms/tables"
                               className={({ isActive }) =>
                                 'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ' +
                                 (isActive && '!text-white')
                               }
                             >
-                              Form Layout
+                              All Products
                             </NavLink>
-                          </li> */}
+                          </li>
                         </ul>
                       </div>
                       {/* <!-- Dropdown Menu End --> */}
