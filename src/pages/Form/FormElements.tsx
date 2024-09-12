@@ -7,7 +7,7 @@ const FormElements = () => {
       <Breadcrumb pageName="Form Elements" />
 
       <div className="grid grid-cols-1 gap-9 sm:grid-cols-2">
-       <form action="#">
+       <form action="#" style={{ width:'100%' }}>
         <div className="flex flex-col gap-9">
       
 
@@ -80,9 +80,7 @@ const FormElements = () => {
                   ></textarea>
                 </div>
 
-                <button className="flex w-full justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90">
-                  Send Message
-                </button>
+              
               </div>
             {/* </form> */}
           </div>
@@ -124,6 +122,9 @@ const FormElements = () => {
 
          
         </div>
+        <button className="flex w-full justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90">
+                  Send Message
+                </button>
         </form>
       </div>
     </>
