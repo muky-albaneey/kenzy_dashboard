@@ -7,6 +7,7 @@ const FormElements = () => {
       <Breadcrumb pageName="Form Elements" />
 
       <div className="grid grid-cols-1 gap-9 sm:grid-cols-2">
+       <form action="#">
         <div className="flex flex-col gap-9">
       
 
@@ -20,7 +21,7 @@ const FormElements = () => {
                 Contact Form
               </h3>
             </div>
-            <form action="#">
+            {/* <form action="#"> */}
               <div className="p-6.5">
                 <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">
                   <div className="w-full xl:w-1/2">
@@ -68,8 +69,6 @@ const FormElements = () => {
                   />
                 </div>
 
-                <SelectGroupOne />
-
                 <div className="mb-6">
                   <label className="mb-2.5 block text-black dark:text-white">
                     Message
@@ -85,7 +84,7 @@ const FormElements = () => {
                   Send Message
                 </button>
               </div>
-            </form>
+            {/* </form> */}
           </div>
         </div>
 
@@ -125,6 +124,7 @@ const FormElements = () => {
 
          
         </div>
+        </form>
       </div>
     </>
   );
