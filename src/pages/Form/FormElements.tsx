@@ -27,10 +27,12 @@ const FormElements = () => {
 
     try {
       // Replace with your actual backend API endpoint
-      const response = await axios.post('/api/products', formData);
+      // const response = await axios.post('/api/products', formData);
+      console.log(formData);
+      
 
       // Handle success (you can redirect or show a success message)
-      console.log('Product created successfully:', response.data);
+      // console.log('Product created successfully:', response.data);
     } catch (error) {
       // Handle error
       console.error('Error creating product:', error);
