@@ -47,7 +47,7 @@ const SignUp = () => {
         if (formData.hasOwnProperty(key)) {
           data.append(key, formData[key]);
         }
-      }
+      } 
 
       // Send data to the backend
       const response = await axios.post('https://backend-herbal.onrender.com/user/create', data, {
