@@ -10,7 +10,7 @@ const FormElements = () => {
     quantity: '',
     category: '',
     description: '',
-    userId: '' // Assuming you know the userId
+    // userId: '' // Assuming you know the userId
   });
 
   // Handle form field changes
@@ -124,7 +124,7 @@ const FormElements = () => {
                   ></textarea>
                 </div>
 
-                <div className="mb-4.5">
+                {/* <div className="mb-4.5">
                   <label className="mb-2.5 block text-black dark:text-white">
                     User ID
                   </label>
@@ -136,7 +136,7 @@ const FormElements = () => {
                     placeholder="Enter user ID"
                     className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
-                </div>
+                </div> */}
 
                 <button
                   type="submit"
