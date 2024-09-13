@@ -27,35 +27,76 @@ const SignUp: React.FC = () => {
         [name]: value
       }));
     };
-  
-    // Handle form submission
-    const handleSubmit = async (e:any) => {
+    const handleSubmit = async (e: any) => {
       e.preventDefault();
       setIsSubmitting(true);
-  
+    
       try {
         // Ensure passwords match
         if (formData.password !== formData.confirmPassword) {
           throw new Error('Passwords do not match');
         }
-  
-        // Send data to the backend
-        // await axios.post('/api/users', formData);
-        
-        
-        const response = await axios.post('https://backend-herbal.onrender.com/user/create', formData);
-
-        console.log(formData)
-        console.log('user created successfully:', response.data);
-
+    
+        // Exclude `confirmPassword` before sending to the backend
+        const { confirmPassword, ...formDataToSend } = formData;
+    
+        // Send data to the backend with appropriate headers
+        const response = await axios.post('https://backend-herbal.onrender.com/user/create', formData, {
+          withCredentials: true, 
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+    
+        console.log('Form data:', formDataToSend);
+        console.log('User created successfully:', response.data);
+    
         setSubmissionStatus('success');
       } catch (err) {
-        setError(err.message);
+        console.error('Form submission error:', err.response ? err.response.data : err.message);
+        setError(err.response ? err.response.data : err.message);
         setSubmissionStatus('error');
       } finally {
         setIsSubmitting(false);
       }
     };
+    
+    // Handle form submission
+    // const handleSubmit = async (e:any) => {
+    //   e.preventDefault();
+    //   setIsSubmitting(true);
+  
+    //   try {
+    //     // Ensure passwords match
+    //     if (formData.password !== formData.confirmPassword) {
+    //       throw new Error('Passwords do not match');
+    //     }
+  
+    //     // Send data to the backend
+    //     // await axios.post('/api/users', formData);
+        
+        
+    //     // const response = await axios.post('https://backend-herbal.onrender.com/user/create', formData);
+    //     const response = await axios.post(
+    //       'https://backend-herbal.onrender.com/user/create',
+    //       formData,
+    //       {
+    //         headers: {
+    //           'Content-Type': 'application/json',
+    //         },
+    //       }
+    //     );
+    //     console.log(formData)
+    //     console.log('user created successfully:', response.data);
+
+    //     setSubmissionStatus('success');
+    //   } catch (err) {
+    //     setError(err.message);
+    //     setSubmissionStatus('error');
+    //   } finally {
+    //     setIsSubmitting(false);
+    //   }
+    // };
   
     // Effect to handle side effects based on submission status
     useEffect(() => {
