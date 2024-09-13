@@ -82,7 +82,7 @@ const SignUp = () => {
   return (
     <div className="max-w-md mx-auto p-4 bg-white rounded-lg shadow-md">
       <h2 className="text-2xl font-bold mb-4 text-center">Sign Up</h2>
-      <form onSubmit={handleSubmit} enctype="multipart/form-data">
+      <form onSubmit={handleSubmit} encType="multipart/form-data">
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700" htmlFor="full_name">Full Name</label>
           <input
