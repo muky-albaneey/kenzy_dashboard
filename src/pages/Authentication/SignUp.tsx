@@ -1,10 +1,75 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import LogoDark from '../../images/logo/logo-dark.svg';
 import Logo from '../../images/logo/logo.svg';
+import axios from 'axios';
 
 const SignUp: React.FC = () => {
+  
+    // Form state
+    const [formData, setFormData] = useState({
+      name: '',
+      email: '',
+      password: '',
+      confirmPassword: ''
+    });
+  
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [submissionStatus, setSubmissionStatus] = useState<null|string>(null);
+    const [error, setError] = useState(null);
+  
+    // Handle form input change
+    const handleChange = (e:any) => {
+      const { name, value } = e.target;
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: value
+      }));
+    };
+  
+    // Handle form submission
+    const handleSubmit = async (e:any) => {
+      e.preventDefault();
+      setIsSubmitting(true);
+  
+      try {
+        // Ensure passwords match
+        if (formData.password !== formData.confirmPassword) {
+          throw new Error('Passwords do not match');
+        }
+  
+        // Send data to the backend
+        // await axios.post('/api/users', formData);
+
+        // const response = await axios.post('https://backend-herbal.onrender.com', formData);
+
+        console.log(formData)
+        // console.log('user created successfully:', response.data);
+
+        setSubmissionStatus('success');
+      } catch (err) {
+        setError(err.message);
+        setSubmissionStatus('error');
+      } finally {
+        setIsSubmitting(false);
+      }
+    };
+  
+    // Effect to handle side effects based on submission status
+    useEffect(() => {
+      if (submissionStatus === 'success') {
+        // Redirect or show success message
+        console.log('Form submitted successfully');
+        // You can use `window.location` or `react-router` to redirect
+      }
+  
+      if (submissionStatus === 'error') {
+        // Handle error case
+        console.error('Form submission error:', error);
+      }
+    }, [submissionStatus, error]);
+
   return (
     <>
       <Breadcrumb pageName="Sign Up" />
@@ -154,7 +219,7 @@ const SignUp: React.FC = () => {
                 Sign Up to TailAdmin
               </h2>
 
-              <form>
+              <form onSubmit={handleSubmit}> 
                 <div className="mb-4">
                   <label className="mb-2.5 block font-medium text-black dark:text-white">
                     Name
@@ -163,6 +228,8 @@ const SignUp: React.FC = () => {
                     <input
                       type="text"
                       placeholder="Enter your full name"
+                      value={formData.name}
+                       onChange={handleChange}
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                     />
 
@@ -198,6 +265,8 @@ const SignUp: React.FC = () => {
                     <input
                       type="email"
                       placeholder="Enter your email"
+                      value={formData.email}
+                      onChange={handleChange}
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                     />
 
@@ -229,6 +298,8 @@ const SignUp: React.FC = () => {
                     <input
                       type="password"
                       placeholder="Enter your password"
+                      value={formData.password}
+                      onChange={handleChange}
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                     />
 
@@ -264,6 +335,8 @@ const SignUp: React.FC = () => {
                     <input
                       type="password"
                       placeholder="Re-enter your password"
+                      value={formData.confirmPassword}
+                      onChange={handleChange}
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                     />
 
@@ -298,7 +371,8 @@ const SignUp: React.FC = () => {
                     className="w-full cursor-pointer rounded-lg border border-primary bg-primary p-4 text-white transition hover:bg-opacity-90"
                   />
                 </div>
-
+                {isSubmitting && <p>Submitting...</p>}
+                {error && <p className="text-red-500">{error}</p>}
                 <button className="flex w-full items-center justify-center gap-3.5 rounded-lg border border-stroke bg-gray p-4 hover:bg-opacity-50 dark:border-strokedark dark:bg-meta-4 dark:hover:bg-opacity-50">
                   <span>
                     <svg
