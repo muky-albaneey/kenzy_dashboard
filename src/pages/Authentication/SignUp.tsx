@@ -41,11 +41,12 @@ const SignUp: React.FC = () => {
   
         // Send data to the backend
         // await axios.post('/api/users', formData);
-
-        // const response = await axios.post('https://backend-herbal.onrender.com', formData);
+        
+        
+        const response = await axios.post('https://backend-herbal.onrender.com/user/create', formData);
 
         console.log(formData)
-        // console.log('user created successfully:', response.data);
+        console.log('user created successfully:', response.data);
 
         setSubmissionStatus('success');
       } catch (err) {
