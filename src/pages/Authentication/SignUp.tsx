@@ -521,11 +521,18 @@ const SignUpForm = () => {
 
     try {
       // Make POST request to backend using axios
-      const response = await axios.post('https://backend-herbal.onrender.com/user/create', {
-        full_name: formData.full_name,
-        email: formData.email,
-        password: formData.password,
-      });
+      // const response = await axios.post('https://backend-herbal.onrender.com/user/create', {
+      //   full_name: formData.full_name,
+      //   email: formData.email,
+      //   password: formData.password,
+      // });
+      const response = await axios.post('https://backend-herbal.onrender.com/user/create', formData, {
+                  withCredentials: true, 
+                  headers: {
+                    'Content-Type': 'application/json'
+                  }
+                });
+            
 
       // Set token and user in Zustand store if the request is successful
       const { token, user } = response.data;
