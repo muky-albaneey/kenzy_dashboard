@@ -10,7 +10,7 @@ const CreateProduct = () => {
     quantity: '',
     category: '',
     description: '',
-    image: null,
+    file: null,
   });
   
   const [status, setStatus] = useState({ submitting: false, error: null, success: false });
@@ -80,7 +80,7 @@ const CreateProduct = () => {
           <label className="block text-sm font-medium text-gray-700" htmlFor="image">Upload Image</label>
           <input
             type="file"
-            name="image"
+            name="file"
             onChange={handleChange}
             className="mt-1 block w-full text-gray-500 file:mr-4 file:py-2 file:px-4 file:border file:rounded-md file:bg-gray-50 hover:file:bg-gray-100"
           />
