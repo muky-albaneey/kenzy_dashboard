@@ -565,73 +565,85 @@ const SignUp: React.FC = () => {
                   </p>
                 </div>
               </form> */}
-              <form onSubmit={handleSubmit}>
-              <div className="mb-4">
-                <label className="mb-2.5 block font-medium text-black dark:text-white">Name</label>
-                <div className="relative">
-                  <input
-                    type="text"
-                    name="full_name"
-                    placeholder="Enter your full name"
-                    value={formData.full_name}
-                    onChange={handleChange}
-                    className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                  />
-                </div>
-              </div>
+                <form onSubmit={handleSubmit}>
+      <div className="mb-4">
+        <label className="mb-2.5 block font-medium text-black dark:text-white">Name</label>
+        <div className="relative">
+          <input
+            type="text"
+            name="full_name"
+            placeholder="Enter your full name"
+            value={formData.full_name}
+            onChange={handleChange}
+            className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+          />
+        </div>
+      </div>
 
-              <div className="mb-4">
-                <label className="mb-2.5 block font-medium text-black dark:text-white">Email</label>
-                <div className="relative">
-                  <input
-                    type="email"
-                    name="email"
-                    placeholder="Enter your email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                  />
-                </div>
-              </div>
+      <div className="mb-4">
+        <label className="mb-2.5 block font-medium text-black dark:text-white">Email</label>
+        <div className="relative">
+          <input
+            type="email"
+            name="email"
+            placeholder="Enter your email"
+            value={formData.email}
+            onChange={handleChange}
+            className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+          />
+        </div>
+      </div>
 
-  <div className="mb-4">
-    <label className="mb-2.5 block font-medium text-black dark:text-white">Password</label>
-    <div className="relative">
-      <input
-        type="password"
-        name="password"
-        placeholder="Enter your password"
-        value={formData.password}
-        onChange={handleChange}
-        className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-      />
-    </div>
-  </div>
+      <div className="mb-4">
+        <label className="mb-2.5 block font-medium text-black dark:text-white">Password</label>
+        <div className="relative">
+          <input
+            type="password"
+            name="password"
+            placeholder="Enter your password"
+            value={formData.password}
+            onChange={handleChange}
+            className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+          />
+          {errors.includes('The password should not exceed 14 characters') && (
+            <p className="text-red-500">The password should not exceed 14 characters</p>
+          )}
+          {errors.includes('The password should exceed 5 characters') && (
+            <p className="text-red-500">The password should exceed 5 characters</p>
+          )}
+          {errors.includes('The password field is empty') && (
+            <p className="text-red-500">The password field is empty</p>
+          )}
+        </div>
+      </div>
 
-  {/* Add Confirm Password Input */}
-  <div className="mb-4">
-    <label className="mb-2.5 block font-medium text-black dark:text-white">Confirm Password</label>
-    <div className="relative">
-      <input
-        type="password"
-        name="confirmPassword"
-        placeholder="Confirm your password"
-        value={formData.confirmPassword}
-        onChange={handleChange}
-        className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-      />
-    </div>
-  </div>
+      <div className="mb-4">
+        <label className="mb-2.5 block font-medium text-black dark:text-white">Confirm Password</label>
+        <div className="relative">
+          <input
+            type="password"
+            name="confirmPassword"
+            placeholder="Confirm your password"
+            value={formData.confirmPassword}
+            onChange={handleChange}
+            className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+          />
+          {errors.includes('confirmPassword must be a string') && (
+            <p className="text-red-500">Confirm Password must be a string</p>
+          )}
+        </div>
+      </div>
 
-  <button
-    type="submit"
-    disabled={isSubmitting}
-    className="w-full py-4 bg-primary text-white rounded-lg"
-  >
-    {isSubmitting ? 'Submitting...' : 'Submit'}
-  </button>
-  {error && <p className="text-red-500">{error}</p>}
-</form>
+      <button
+        type="submit"
+        disabled={isSubmitting}
+        className="w-full py-4 bg-primary text-white rounded-lg"
+      >
+        {isSubmitting ? 'Submitting...' : 'Submit'}
+      </button>
+
+      {error && <p className="text-red-500">{error}</p>}
+    </form>
 
             </div>
           </div>
