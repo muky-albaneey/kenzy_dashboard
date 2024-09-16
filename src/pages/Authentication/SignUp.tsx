@@ -476,7 +476,7 @@ const SignUpForm = () => {
     password: '',
     confirmPassword: '',
   });
-  
+
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   
@@ -516,20 +516,16 @@ const SignUpForm = () => {
       const { token, user } = response.data;
       setAuthData(token, user);
 
-      // Optionally, redirect the user to another page or show success message
-
     } catch (err) {
       // Handle error responses from backend
       if (err.response) {
-        // Check for validation errors from backend
         const { message, statusCode } = err.response.data;
-        
-        if (Array.isArray(message)) {
-          setError(message.join(', '));
-        } else if (statusCode === 401) {
-          setError('User already exists or unauthorized');
+
+        // Handle 401 errors explicitly (user already exists case)
+        if (statusCode === 401 && message === "The user already exists!") {
+          setError('The user already exists. Please use a different email.');
         } else {
-          setError('An error occurred. Please try again.');
+          setError(message || 'An error occurred. Please try again.');
         }
       } else {
         setError('An error occurred. Please check your internet connection.');
@@ -539,75 +535,78 @@ const SignUpForm = () => {
     }
   };
 
+  // Ensure the component does not crash and still returns JSX even in error scenarios
   return (
-    <form onSubmit={handleSubmit}>
-      <div className="mb-4">
-        <label className="mb-2.5 block font-medium text-black dark:text-white">Name</label>
-        <div className="relative">
-          <input
-            type="text"
-            name="full_name"
-            placeholder="Enter your full name"
-            value={formData.full_name}
-            onChange={handleChange}
-            className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-          />
-        </div>
-      </div>
+    <div>
+      {/* Error display */}
+      {error && <p className="text-red-500">{error}</p>}
 
-      <div className="mb-4">
-        <label className="mb-2.5 block font-medium text-black dark:text-white">Email</label>
-        <div className="relative">
-          <input
-            type="email"
-            name="email"
-            placeholder="Enter your email"
-            value={formData.email}
-            onChange={handleChange}
-            className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-          />
+      <form onSubmit={handleSubmit}>
+        <div className="mb-4">
+          <label className="mb-2.5 block font-medium text-black dark:text-white">Name</label>
+          <div className="relative">
+            <input
+              type="text"
+              name="full_name"
+              placeholder="Enter your full name"
+              value={formData.full_name}
+              onChange={handleChange}
+              className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+            />
+          </div>
         </div>
-      </div>
 
-      <div className="mb-4">
-        <label className="mb-2.5 block font-medium text-black dark:text-white">Password</label>
-        <div className="relative">
-          <input
-            type="password"
-            name="password"
-            placeholder="Enter your password"
-            value={formData.password}
-            onChange={handleChange}
-            className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-          />
+        <div className="mb-4">
+          <label className="mb-2.5 block font-medium text-black dark:text-white">Email</label>
+          <div className="relative">
+            <input
+              type="email"
+              name="email"
+              placeholder="Enter your email"
+              value={formData.email}
+              onChange={handleChange}
+              className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+            />
+          </div>
         </div>
-      </div>
 
-      <div className="mb-4">
-        <label className="mb-2.5 block font-medium text-black dark:text-white">Confirm Password</label>
-        <div className="relative">
-          <input
-            type="password"
-            name="confirmPassword"
-            placeholder="Confirm your password"
-            value={formData.confirmPassword}
-            onChange={handleChange}
-            className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-          />
+        <div className="mb-4">
+          <label className="mb-2.5 block font-medium text-black dark:text-white">Password</label>
+          <div className="relative">
+            <input
+              type="password"
+              name="password"
+              placeholder="Enter your password"
+              value={formData.password}
+              onChange={handleChange}
+              className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+            />
+          </div>
         </div>
-      </div>
 
-      <button
-        type="submit"
-        disabled={isSubmitting}
-        className="w-full py-4 bg-primary text-white rounded-lg"
-      >
-        {isSubmitting ? 'Submitting...' : 'Submit'}
-      </button>
-      
-      {/* Display errors */}
-      {error && <p className="text-red-500 mt-4">{error}</p>}
-    </form>
+        <div className="mb-4">
+          <label className="mb-2.5 block font-medium text-black dark:text-white">Confirm Password</label>
+          <div className="relative">
+            <input
+              type="password"
+              name="confirmPassword"
+              placeholder="Confirm your password"
+              value={formData.confirmPassword}
+              onChange={handleChange}
+              className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+            />
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          className="w-full py-4 bg-primary text-white rounded-lg"
+        >
+          {isSubmitting ? 'Submitting...' : 'Submit'}
+        </button>
+      </form>
+    </div>
   );
 };
 
