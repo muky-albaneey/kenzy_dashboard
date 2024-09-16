@@ -566,33 +566,33 @@ const SignUp: React.FC = () => {
                 </div>
               </form> */}
               <form onSubmit={handleSubmit}>
-  <div className="mb-4">
-    <label className="mb-2.5 block font-medium text-black dark:text-white">Name</label>
-    <div className="relative">
-      <input
-        type="text"
-        name="full_name"
-        placeholder="Enter your full name"
-        value={formData.full_name}
-        onChange={handleChange}
-        className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-      />
-    </div>
-  </div>
+              <div className="mb-4">
+                <label className="mb-2.5 block font-medium text-black dark:text-white">Name</label>
+                <div className="relative">
+                  <input
+                    type="text"
+                    name="full_name"
+                    placeholder="Enter your full name"
+                    value={formData.full_name}
+                    onChange={handleChange}
+                    className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                  />
+                </div>
+              </div>
 
-  <div className="mb-4">
-    <label className="mb-2.5 block font-medium text-black dark:text-white">Email</label>
-    <div className="relative">
-      <input
-        type="email"
-        name="email"
-        placeholder="Enter your email"
-        value={formData.email}
-        onChange={handleChange}
-        className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-      />
-    </div>
-  </div>
+              <div className="mb-4">
+                <label className="mb-2.5 block font-medium text-black dark:text-white">Email</label>
+                <div className="relative">
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="Enter your email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                  />
+                </div>
+              </div>
 
   <div className="mb-4">
     <label className="mb-2.5 block font-medium text-black dark:text-white">Password</label>
@@ -630,6 +630,7 @@ const SignUp: React.FC = () => {
   >
     {isSubmitting ? 'Submitting...' : 'Submit'}
   </button>
+  {error && <p className="text-red-500">{error}</p>}
 </form>
 
             </div>
