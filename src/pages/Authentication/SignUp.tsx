@@ -4,30 +4,158 @@ import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import LogoDark from '../../images/logo/logo-dark.svg';
 import Logo from '../../images/logo/logo.svg';
 import axios from 'axios';
+import { useAuthStore } from '../../store/auth';
 
 const SignUp: React.FC = () => {
   
-    // Form state
+    // // Form state
+    // const [formData, setFormData] = useState({
+    //   full_name: '',
+    //   email: '',
+    //   password: '',
+    //   confirmPassword: ''
+    // });
+  
+    // const [isSubmitting, setIsSubmitting] = useState(false);
+    // const [submissionStatus, setSubmissionStatus] = useState<null|string>(null);
+    // const [error, setError] = useState(null);
+  
+    // // Handle form input change
+    // const handleChange = (e:any) => {
+    //   const { name, value } = e.target;
+    //   setFormData((prevData) => ({
+    //     ...prevData,
+    //     [name]: value
+    //   }));
+    // };
+    // const handleSubmit = async (e: any) => {
+    //   e.preventDefault();
+    //   setIsSubmitting(true);
+    
+    //   try {
+    //     // Ensure passwords match
+    //     if (formData.password !== formData.confirmPassword) {
+    //       throw new Error('Passwords do not match');
+    //     }
+    
+    //     // Exclude `confirmPassword` before sending to the backend
+    //     const { confirmPassword, ...formDataToSend } = formData;
+    
+    //     // Send data to the backend with appropriate headers
+    //     const response = await axios.post('https://backend-herbal.onrender.com/user/create', formData, {
+    //       withCredentials: true, 
+    //       headers: {
+    //         'Content-Type': 'application/json'
+    //       }
+    //     });
+    
+    //     console.log('Form data:', formDataToSend);
+    //     console.log('User created successfully:', response.data);
+    
+    //     setSubmissionStatus('success');
+    //   } catch (err) {
+    //     console.error('Form submission error:', err.response ? err.response.data : err.message);
+    //     setError(err.response ? err.response.data : err.message);
+    //     setSubmissionStatus('error');
+    //   } finally {
+    //     setIsSubmitting(false);
+    //   }
+    // };
+    
+    // const [formData, setFormData] = useState({
+    //   full_name: '',
+    //   email: '',
+    //   password: '',
+    //   confirmPassword: ''
+    // });
+  
+    // const [isSubmitting, setIsSubmitting] = useState(false);
+    // const [submissionStatus, setSubmissionStatus] = useState<null | string>(null);
+    // const [error, setError] = useState<null | string>(null);
+  
+    // // Handle form input change
+    // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    //   const { name, value } = e.target;
+    //   setFormData((prevData) => ({
+    //     ...prevData,
+    //     [name]: value
+    //   }));
+    // };
+  
+    // // Handle form submission
+    // const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    //   e.preventDefault();
+    //   setIsSubmitting(true);
+  
+    //   try {
+    //     // Ensure passwords match
+    //     if (formData.password !== formData.confirmPassword) {
+    //       throw new Error('Passwords do not match');
+    //     }
+  
+    //     // Exclude `confirmPassword` before sending to the backend
+    //     const { confirmPassword, ...formDataToSend } = formData;
+  
+    //     // Send data to the backend with appropriate headers
+    //     const response = await axios.post('https://backend-herbal.onrender.com/user/create', formDataToSend, {
+    //       withCredentials: true,
+    //       headers: {
+    //         'Content-Type': 'application/json'
+    //       }
+    //     });
+  
+    //     console.log('Form data:', formDataToSend);
+    //     console.log('User created successfully:', response.data);
+  
+    //     setSubmissionStatus('success');
+    //   } catch (err) {
+    //     console.error('Form submission error:', err.response ? err.response.data : err.message);
+    //     setError(err.response ? err.response.data : err.message);
+    //     setSubmissionStatus('error');
+    //   } finally {
+    //     setIsSubmitting(false);
+    //   }
+    // };
+  
+  
+    // // Effect to handle side effects based on submission status
+    // useEffect(() => {
+    //   if (submissionStatus === 'success') {
+    //     // Redirect or show success message
+    //     console.log('Form submitted successfully');
+    //     // You can use `window.location` or `react-router` to redirect
+    //   }
+  
+    //   if (submissionStatus === 'error') {
+    //     // Handle error case
+    //     console.error('Form submission error:', error);
+    //   }
+    // }, [submissionStatus, error]);
     const [formData, setFormData] = useState({
       full_name: '',
       email: '',
       password: '',
       confirmPassword: ''
     });
-  
+    
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const [submissionStatus, setSubmissionStatus] = useState<null|string>(null);
-    const [error, setError] = useState(null);
-  
+    const [submissionStatus, setSubmissionStatus] = useState<null | string>(null);
+    const [error, setError] = useState<null | string>(null);
+    
+    // Use Zustand store
+    const { setAuthData } = useAuthStore();
+    
     // Handle form input change
-    const handleChange = (e:any) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       const { name, value } = e.target;
       setFormData((prevData) => ({
         ...prevData,
-        [name]: value
+        [name]: value,
       }));
     };
-    const handleSubmit = async (e: any) => {
+    
+    // Handle form submission
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       setIsSubmitting(true);
     
@@ -41,15 +169,24 @@ const SignUp: React.FC = () => {
         const { confirmPassword, ...formDataToSend } = formData;
     
         // Send data to the backend with appropriate headers
-        const response = await axios.post('https://backend-herbal.onrender.com/user/create', formData, {
-          withCredentials: true, 
-          headers: {
-            'Content-Type': 'application/json'
+        const response = await axios.post(
+          'https://backend-herbal.onrender.com/user/create',
+          formDataToSend,
+          {
+            withCredentials: true,
+            headers: {
+              'Content-Type': 'application/json',
+            },
           }
-        });
+        );
     
-        console.log('Form data:', formDataToSend);
         console.log('User created successfully:', response.data);
+    
+        // Store the token and user data in Zustand
+        setAuthData(response.data.token, {
+          full_name: response.data.user.full_name,
+          email: response.data.user.email,
+        });
     
         setSubmissionStatus('success');
       } catch (err) {
@@ -61,56 +198,18 @@ const SignUp: React.FC = () => {
       }
     };
     
-    // Handle form submission
-    // const handleSubmit = async (e:any) => {
-    //   e.preventDefault();
-    //   setIsSubmitting(true);
-  
-    //   try {
-    //     // Ensure passwords match
-    //     if (formData.password !== formData.confirmPassword) {
-    //       throw new Error('Passwords do not match');
-    //     }
-  
-    //     // Send data to the backend
-    //     // await axios.post('/api/users', formData);
-        
-        
-    //     // const response = await axios.post('https://backend-herbal.onrender.com/user/create', formData);
-    //     const response = await axios.post(
-    //       'https://backend-herbal.onrender.com/user/create',
-    //       formData,
-    //       {
-    //         headers: {
-    //           'Content-Type': 'application/json',
-    //         },
-    //       }
-    //     );
-    //     console.log(formData)
-    //     console.log('user created successfully:', response.data);
-
-    //     setSubmissionStatus('success');
-    //   } catch (err) {
-    //     setError(err.message);
-    //     setSubmissionStatus('error');
-    //   } finally {
-    //     setIsSubmitting(false);
-    //   }
-    // };
-  
     // Effect to handle side effects based on submission status
     useEffect(() => {
       if (submissionStatus === 'success') {
-        // Redirect or show success message
         console.log('Form submitted successfully');
-        // You can use `window.location` or `react-router` to redirect
+        // Redirect or show success message
       }
-  
+    
       if (submissionStatus === 'error') {
-        // Handle error case
         console.error('Form submission error:', error);
       }
     }, [submissionStatus, error]);
+    
 
   return (
     <>
@@ -261,7 +360,7 @@ const SignUp: React.FC = () => {
                 Sign Up to TailAdmin
               </h2>
 
-              <form onSubmit={handleSubmit}> 
+              {/* <form onSubmit={handleSubmit}> 
                 <div className="mb-4">
                   <label className="mb-2.5 block font-medium text-black dark:text-white">
                     Name
@@ -464,7 +563,74 @@ const SignUp: React.FC = () => {
                     </Link>
                   </p>
                 </div>
-              </form>
+              </form> */}
+              <form onSubmit={handleSubmit}>
+  <div className="mb-4">
+    <label className="mb-2.5 block font-medium text-black dark:text-white">Name</label>
+    <div className="relative">
+      <input
+        type="text"
+        name="full_name"
+        placeholder="Enter your full name"
+        value={formData.full_name}
+        onChange={handleChange}
+        className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+      />
+    </div>
+  </div>
+
+  <div className="mb-4">
+    <label className="mb-2.5 block font-medium text-black dark:text-white">Email</label>
+    <div className="relative">
+      <input
+        type="email"
+        name="email"
+        placeholder="Enter your email"
+        value={formData.email}
+        onChange={handleChange}
+        className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+      />
+    </div>
+  </div>
+
+  <div className="mb-4">
+    <label className="mb-2.5 block font-medium text-black dark:text-white">Password</label>
+    <div className="relative">
+      <input
+        type="password"
+        name="password"
+        placeholder="Enter your password"
+        value={formData.password}
+        onChange={handleChange}
+        className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+      />
+    </div>
+  </div>
+
+  {/* Add Confirm Password Input */}
+  <div className="mb-4">
+    <label className="mb-2.5 block font-medium text-black dark:text-white">Confirm Password</label>
+    <div className="relative">
+      <input
+        type="password"
+        name="confirmPassword"
+        placeholder="Confirm your password"
+        value={formData.confirmPassword}
+        onChange={handleChange}
+        className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+      />
+    </div>
+  </div>
+
+  <button
+    type="submit"
+    disabled={isSubmitting}
+    className="w-full py-4 bg-primary text-white rounded-lg"
+  >
+    {isSubmitting ? 'Submitting...' : 'Submit'}
+  </button>
+</form>
+
             </div>
           </div>
         </div>
