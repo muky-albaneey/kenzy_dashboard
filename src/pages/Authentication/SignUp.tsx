@@ -537,7 +537,7 @@ const SignUpForm = () => {
       // Set token and user in Zustand store if the request is successful
       let res = response.data;
       // setAuthData();
-      console.log(res)
+      console.log(response)
 
     } catch (err) {
       // Handle error responses from backend
