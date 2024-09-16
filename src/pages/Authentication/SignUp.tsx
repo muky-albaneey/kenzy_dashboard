@@ -143,7 +143,7 @@ const SignUp: React.FC = () => {
     const [error, setError] = useState<null | string>(null);
     
     // Use Zustand store
-    const { setAuthData } = useAuthStore();
+    const { setAuthData, token } = useAuthStore();
     
     // Handle form input change
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -210,6 +210,7 @@ const SignUp: React.FC = () => {
       }
     }, [submissionStatus, error]);
     
+    if(token) console.log(token)
 
   return (
     <>
