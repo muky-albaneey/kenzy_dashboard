@@ -40,8 +40,10 @@ const CreateProduct = () => {
       //   headers: { 'Content-Type': 'multipart/form-data' },
       //   withCredentials: true,
       // });
-      console.log(data)
-
+      for (let [key, value] of data.entries()) {
+        console.log(`${key}:`, value);
+      }
+  
       setStatus({ submitting: false, error: null, success: true });
     } catch (err) {
       setStatus({ submitting: false, error: err.message, success: false });
