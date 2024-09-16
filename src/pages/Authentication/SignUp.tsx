@@ -538,7 +538,9 @@ const SignUpForm = () => {
       let res = response.data;
       // setAuthData();
       console.log(response)
-
+      console.log(res.message);        // 'User created successfully'
+      console.log(res.jwtTokens);      // JWT token
+      console.log(res.roleToken);      // Role token
     } catch (err) {
       // Handle error responses from backend
       if (err.response) {
