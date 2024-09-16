@@ -9,7 +9,9 @@ type AuthState = {
     email: string;
   } | null;
   isAuthenticated: boolean;
-  setAuthData: (token: string, user: { full_name: string; email: string }) => void;
+//   setAuthData: (token: string, user: { full_name: string; email: string }) => void;
+setAuthData: (token: string, user: { full_name: string; email: string }) => void;
+
 };
 
 export const useAuthStore = create<AuthState>()(
