@@ -36,10 +36,11 @@ const CreateProduct = () => {
       Object.entries(formData).forEach(([key, value]) => data.append(key, value as string | Blob));
       data.append('userId', userId);
 
-      await axios.post('https://backend-herbal.onrender.com/products', data, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-        withCredentials: true,
-      });
+      // await axios.post('https://backend-herbal.onrender.com/products', data, {
+      //   headers: { 'Content-Type': 'multipart/form-data' },
+      //   withCredentials: true,
+      // });
+      console.log(data)
 
       setStatus({ submitting: false, error: null, success: true });
     } catch (err) {
