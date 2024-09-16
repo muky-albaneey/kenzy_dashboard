@@ -50,7 +50,8 @@ const SignUp: React.FC = () => {
         });
     
         console.log('Form data:', formDataToSend);
-        console.log('User created successfully:', response.data);
+        console.log('User created successfully:', response.data.jwtTokens);
+        console.log('User created successfully:', response.data.message);
     
         setSubmissionStatus('success');
       } catch (err) {
