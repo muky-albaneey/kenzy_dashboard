@@ -8,173 +8,105 @@ import { useAuthStore } from '../../store/auth';
 
 const SignUp: React.FC = () => {
   
-    // // Form state
-    // const [formData, setFormData] = useState({
-    //   full_name: '',
-    //   email: '',
-    //   password: '',
-    //   confirmPassword: ''
-    // });
-  
-    // const [isSubmitting, setIsSubmitting] = useState(false);
-    // const [submissionStatus, setSubmissionStatus] = useState<null|string>(null);
-    // const [error, setError] = useState(null);
-  
-    // // Handle form input change
-    // const handleChange = (e:any) => {
-    //   const { name, value } = e.target;
-    //   setFormData((prevData) => ({
-    //     ...prevData,
-    //     [name]: value
-    //   }));
-    // };
-    // const handleSubmit = async (e: any) => {
-    //   e.preventDefault();
-    //   setIsSubmitting(true);
-    
-    //   try {
-    //     // Ensure passwords match
-    //     if (formData.password !== formData.confirmPassword) {
-    //       throw new Error('Passwords do not match');
-    //     }
-    
-    //     // Exclude `confirmPassword` before sending to the backend
-    //     const { confirmPassword, ...formDataToSend } = formData;
-    
-    //     // Send data to the backend with appropriate headers
-    //     const response = await axios.post('https://backend-herbal.onrender.com/user/create', formData, {
-    //       withCredentials: true, 
-    //       headers: {
-    //         'Content-Type': 'application/json'
-    //       }
-    //     });
-    
-    //     console.log('Form data:', formDataToSend);
-    //     console.log('User created successfully:', response.data);
-    
-    //     setSubmissionStatus('success');
-    //   } catch (err) {
-    //     console.error('Form submission error:', err.response ? err.response.data : err.message);
-    //     setError(err.response ? err.response.data : err.message);
-    //     setSubmissionStatus('error');
-    //   } finally {
-    //     setIsSubmitting(false);
-    //   }
-    // };
-    
-    // const [formData, setFormData] = useState({
-    //   full_name: '',
-    //   email: '',
-    //   password: '',
-    //   confirmPassword: ''
-    // });
-  
-    // const [isSubmitting, setIsSubmitting] = useState(false);
-    // const [submissionStatus, setSubmissionStatus] = useState<null | string>(null);
-    // const [error, setError] = useState<null | string>(null);
-  
-    // // Handle form input change
-    // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    //   const { name, value } = e.target;
-    //   setFormData((prevData) => ({
-    //     ...prevData,
-    //     [name]: value
-    //   }));
-    // };
-  
-    // // Handle form submission
-    // const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    //   e.preventDefault();
-    //   setIsSubmitting(true);
-  
-    //   try {
-    //     // Ensure passwords match
-    //     if (formData.password !== formData.confirmPassword) {
-    //       throw new Error('Passwords do not match');
-    //     }
-  
-    //     // Exclude `confirmPassword` before sending to the backend
-    //     const { confirmPassword, ...formDataToSend } = formData;
-  
-    //     // Send data to the backend with appropriate headers
-    //     const response = await axios.post('https://backend-herbal.onrender.com/user/create', formDataToSend, {
-    //       withCredentials: true,
-    //       headers: {
-    //         'Content-Type': 'application/json'
-    //       }
-    //     });
-  
-    //     console.log('Form data:', formDataToSend);
-    //     console.log('User created successfully:', response.data);
-  
-    //     setSubmissionStatus('success');
-    //   } catch (err) {
-    //     console.error('Form submission error:', err.response ? err.response.data : err.message);
-    //     setError(err.response ? err.response.data : err.message);
-    //     setSubmissionStatus('error');
-    //   } finally {
-    //     setIsSubmitting(false);
-    //   }
-    // };
-  
-  
-    // // Effect to handle side effects based on submission status
-    // useEffect(() => {
-    //   if (submissionStatus === 'success') {
-    //     // Redirect or show success message
-    //     console.log('Form submitted successfully');
-    //     // You can use `window.location` or `react-router` to redirect
-    //   }
-  
-    //   if (submissionStatus === 'error') {
-    //     // Handle error case
-    //     console.error('Form submission error:', error);
-    //   }
-    // }, [submissionStatus, error]);
+    // Form state
     const [formData, setFormData] = useState({
       full_name: '',
       email: '',
       password: '',
-      confirmPassword: '',
+      confirmPassword: ''
     });
-    const [errors, setErrors] = useState([]);
+  
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const [error, setError] = useState('');
+    const [submissionStatus, setSubmissionStatus] = useState<null|string>(null);
+    const [error, setError] = useState(null);
   
-    const handleChange = (e) => {
-      setFormData({
-        ...formData,
-        [e.target.name]: e.target.value,
-      });
+    // Handle form input change
+    const handleChange = (e:any) => {
+      const { name, value } = e.target;
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: value
+      }));
     };
-  
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: any) => {
       e.preventDefault();
       setIsSubmitting(true);
-  
+    
       try {
-        const response = await fetch('https://backend-herbal.onrender.com/user/create', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(formData),
-        });
-  
-        const data = await response.json();
-  
-        if (!response.ok) {
-          setErrors(data.message); // Store the error messages
-          setIsSubmitting(false);
-          return;
+        // Ensure passwords match
+        if (formData.password !== formData.confirmPassword) {
+          throw new Error('Passwords do not match');
         }
-  
-        // Handle success case here (e.g., navigate to another page or show success message)
-      } catch (error) {
-        setError('An unexpected error occurred');
+    
+        // Exclude `confirmPassword` before sending to the backend
+        const { confirmPassword, ...formDataToSend } = formData;
+    
+        // Send data to the backend with appropriate headers
+        const response = await axios.post('https://backend-herbal.onrender.com/user/create', formData, {
+          withCredentials: true, 
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+    
+        console.log('Form data:', formDataToSend);
+        console.log('User created successfully:', response.data);
+    
+        setSubmissionStatus('success');
+      } catch (err) {
+        console.error('Form submission error:', err.response ? err.response.data : err.message);
+        setError(err.response ? err.response.data : err.message);
+        setSubmissionStatus('error');
+      } finally {
         setIsSubmitting(false);
       }
     };
+    
+ 
+    // const [formData, setFormData] = useState({
+    //   full_name: '',
+    //   email: '',
+    //   password: '',
+    //   confirmPassword: '',
+    // });
+    // const [errors, setErrors] = useState([]);
+    // const [isSubmitting, setIsSubmitting] = useState(false);
+    // const [error, setError] = useState('');
+  
+    // const handleChange = (e) => {
+    //   setFormData({
+    //     ...formData,
+    //     [e.target.name]: e.target.value,
+    //   });
+    // };
+  
+    // const handleSubmit = async (e) => {
+    //   e.preventDefault();
+    //   setIsSubmitting(true);
+  
+    //   try {
+    //     const response = await fetch('https://backend-herbal.onrender.com/user/create', {
+    //       method: 'POST',
+    //       headers: {
+    //         'Content-Type': 'application/json',
+    //       },
+    //       body: JSON.stringify(formData),
+    //     });
+  
+    //     const data = await response.json();
+  
+    //     if (!response.ok) {
+    //       setErrors(data.message); // Store the error messages
+    //       setIsSubmitting(false);
+    //       return;
+    //     }
+  
+    //     // Handle success case here (e.g., navigate to another page or show success message)
+    //   } catch (error) {
+    //     setError('An unexpected error occurred');
+    //     setIsSubmitting(false);
+    //   }
+    // };
     
     // if(token) console.log(token)
 
@@ -327,7 +259,7 @@ const SignUp: React.FC = () => {
                 Sign Up to TailAdmin
               </h2>
 
-              {/* <form onSubmit={handleSubmit}> 
+              <form onSubmit={handleSubmit}> 
                 <div className="mb-4">
                   <label className="mb-2.5 block font-medium text-black dark:text-white">
                     Name
@@ -530,8 +462,8 @@ const SignUp: React.FC = () => {
                     </Link>
                   </p>
                 </div>
-              </form> */}
-                <form onSubmit={handleSubmit}>
+              </form>
+                {/* <form onSubmit={handleSubmit}>
       <div className="mb-4">
         <label className="mb-2.5 block font-medium text-black dark:text-white">Name</label>
         <div className="relative">
@@ -609,7 +541,7 @@ const SignUp: React.FC = () => {
       </button>
 
       {error && <p className="text-red-500">{error}</p>}
-    </form>
+    </form> */}
 
             </div>
           </div>
