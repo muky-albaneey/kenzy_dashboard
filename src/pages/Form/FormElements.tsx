@@ -1,18 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useAuthStore } from './path-to-auth-store'; // Adjust the import path
+import jwt_decode from 'jwt-decode';
 
-const SignUp = () => {
+type DecodedToken = {
+  sub: string; // Assuming the token has the userId under the "sub" claim
+  iat?: number;
+  exp?: number;
+};
+
+const CreateProduct = () => {
   const [formData, setFormData] = useState({
-    full_name: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-    image: null // Added image field
+    name: '',
+    price: '',
+    quantity: '',
+    category: '',
+    description: '',
+    image: null, // Added image field
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submissionStatus, setSubmissionStatus] = useState<null | string>(null);
   const [error, setError] = useState<string | null>(null);
+
+  // Retrieve the JWT token from Zustand
+  const jwtToken = useAuthStore((state) => state.jwtToken);
 
   // Handle form input change
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -20,12 +32,12 @@ const SignUp = () => {
     if (type === 'file' && files) {
       setFormData((prevData) => ({
         ...prevData,
-        [name]: files[0] // Store the selected file
+        image: files[0], // Store the selected file for image
       }));
     } else {
       setFormData((prevData) => ({
         ...prevData,
-        [name]: value
+        [name]: value,
       }));
     }
   };
@@ -36,9 +48,17 @@ const SignUp = () => {
     setIsSubmitting(true);
 
     try {
-      // Ensure passwords match
-      if (formData.password !== formData.confirmPassword) {
-        throw new Error('Passwords do not match');
+      // Ensure the JWT token is available and decode it
+      if (!jwtToken) {
+        throw new Error('User is not authenticated');
+      }
+
+      // Decode the JWT to get the userId
+      const decodedToken: DecodedToken = jwt_decode(jwtToken);
+      const userId = decodedToken.sub; // Assuming "sub" contains the userId
+
+      if (!userId) {
+        throw new Error('Invalid token. User ID not found.');
       }
 
       // Prepare form data for submission
@@ -47,17 +67,18 @@ const SignUp = () => {
         if (formData.hasOwnProperty(key)) {
           data.append(key, formData[key]);
         }
-      } 
+      }
+      data.append('userId', userId); // Append the userId to the form data
 
       // Send data to the backend
-      const response = await axios.post('https://backend-herbal.onrender.com/user/create', data, {
+      const response = await axios.post('https://backend-herbal.onrender.com/products', data, {
         withCredentials: true,
         headers: {
-          'Content-Type': 'multipart/form-data'
-        }
+          'Content-Type': 'multipart/form-data',
+        },
       });
 
-      console.log('User created successfully:', response.data);
+      console.log('Product created successfully:', response.data);
       setSubmissionStatus('success');
     } catch (err) {
       setError(err.message);
@@ -81,14 +102,14 @@ const SignUp = () => {
 
   return (
     <div className="max-w-md mx-auto p-4 bg-white rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold mb-4 text-center">Sign Up</h2>
+      <h2 className="text-2xl font-bold mb-4 text-center">Create Product</h2>
       <form onSubmit={handleSubmit} encType="multipart/form-data">
         <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700" htmlFor="full_name">Full Name</label>
+          <label className="block text-sm font-medium text-gray-700" htmlFor="name">Product Name</label>
           <input
             type="text"
-            name="full_name"
-            value={formData.full_name}
+            name="name"
+            value={formData.name}
             onChange={handleChange}
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             required
@@ -96,11 +117,11 @@ const SignUp = () => {
         </div>
 
         <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700" htmlFor="email">Email</label>
+          <label className="block text-sm font-medium text-gray-700" htmlFor="price">Price</label>
           <input
-            type="email"
-            name="email"
-            value={formData.email}
+            type="text"
+            name="price"
+            value={formData.price}
             onChange={handleChange}
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             required
@@ -108,11 +129,11 @@ const SignUp = () => {
         </div>
 
         <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700" htmlFor="password">Password</label>
+          <label className="block text-sm font-medium text-gray-700" htmlFor="quantity">Quantity</label>
           <input
-            type="password"
-            name="password"
-            value={formData.password}
+            type="text"
+            name="quantity"
+            value={formData.quantity}
             onChange={handleChange}
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             required
@@ -120,11 +141,23 @@ const SignUp = () => {
         </div>
 
         <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700" htmlFor="confirmPassword">Confirm Password</label>
+          <label className="block text-sm font-medium text-gray-700" htmlFor="category">Category</label>
           <input
-            type="password"
-            name="confirmPassword"
-            value={formData.confirmPassword}
+            type="text"
+            name="category"
+            value={formData.category}
+            onChange={handleChange}
+            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+            required
+          />
+        </div>
+
+        <div className="mb-4">
+          <label className="block text-sm font-medium text-gray-700" htmlFor="description">Description</label>
+          <input
+            type="text"
+            name="description"
+            value={formData.description}
             onChange={handleChange}
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             required
@@ -135,7 +168,7 @@ const SignUp = () => {
           <label className="block text-sm font-medium text-gray-700" htmlFor="image">Upload Image</label>
           <input
             type="file"
-            name="image"
+            name="file"
             onChange={handleChange}
             className="mt-1 block w-full text-gray-500 file:mr-4 file:py-2 file:px-4 file:border file:border-gray-300 file:rounded-md file:text-sm file:font-semibold file:bg-gray-50 hover:file:bg-gray-100"
           />
@@ -150,14 +183,14 @@ const SignUp = () => {
         </button>
 
         {submissionStatus === 'success' && (
-          <div className="mt-4 text-green-600">Form submitted successfully!</div>
+          <div className="mt-4 text-green-600">Product created successfully!</div>
         )}
         {submissionStatus === 'error' && (
-          <div className="mt-4 text-red-600">Form submission error: {error}</div>
+          <div className="mt-4 text-red-600">Submission error: {error}</div>
         )}
       </form>
     </div>
   );
 };
 
-export default SignUp;
+export default CreateProduct;
