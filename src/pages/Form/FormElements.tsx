@@ -24,34 +24,61 @@ const CreateProduct = () => {
     }));
   };
 
+  // const handleSubmit = async (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   setStatus({ submitting: true, error: null, success: false });
+
+  //   try {
+  //     if (!jwtToken) throw new Error('User not authenticated');
+  //     const userId = decode(jwtToken).payload.sub; // Get user ID from token
+
+  //     const data = new FormData();
+  //     Object.entries(formData).forEach(([key, value]) => data.append(key, value as string | Blob));
+  //     data.append('userId', userId);
+
+  //     await axios.post('https://backend-herbal.onrender.com/products', data, {
+  //       headers: { 'Content-Type': 'multipart/form-data' },
+  //       withCredentials: true,
+  //     });
+  //     console.log(userId);
+      
+  //     for (let [key, value] of data.entries()) {
+  //       console.log(`${key}:`, value);
+  //     }
+  
+  //     setStatus({ submitting: false, error: null, success: true });
+  //   } catch (err) {
+  //     setStatus({ submitting: false, error: err.message, success: false });
+  //   }
+  // };
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus({ submitting: true, error: null, success: false });
-
+  
     try {
       if (!jwtToken) throw new Error('User not authenticated');
       const userId = decode(jwtToken).payload.sub; // Get user ID from token
-
+  
       const data = new FormData();
-      Object.entries(formData).forEach(([key, value]) => data.append(key, value as string | Blob));
+      Object.entries(formData).forEach(([key, value]) => data.append(key === 'file' ? 'file' : key, value as string | Blob)); // Use 'file' key for the image
       data.append('userId', userId);
-
+  
+      // Log all form data before sending
+      for (let [key, value] of data.entries()) {
+        console.log(`${key}:`, value);
+      }
+  
       await axios.post('https://backend-herbal.onrender.com/products', data, {
         headers: { 'Content-Type': 'multipart/form-data' },
         withCredentials: true,
       });
-      console.log(userId);
-      
-      for (let [key, value] of data.entries()) {
-        console.log(`${key}:`, value);
-      }
   
       setStatus({ submitting: false, error: null, success: true });
     } catch (err) {
       setStatus({ submitting: false, error: err.message, success: false });
     }
   };
-
+  
   useEffect(() => {
     if (status.success) console.log('Product created successfully');
   }, [status.success]);
