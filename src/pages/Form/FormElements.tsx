@@ -40,6 +40,8 @@ const CreateProduct = () => {
       //   headers: { 'Content-Type': 'multipart/form-data' },
       //   withCredentials: true,
       // });
+      console.log(userId);
+      
       for (let [key, value] of data.entries()) {
         console.log(`${key}:`, value);
       }
