@@ -41,27 +41,33 @@ import { persist, createJSONStorage } from 'zustand/middleware';
 import { produce } from 'immer';
 
 type AuthState = {
-  token: string | null;
+  jwtToken: string | null;
+  roleToken: string | null;
+  refreshToken: string | null;
   user: {
     full_name: string;
     email: string;
   } | null;
   isAuthenticated: boolean;
-  setAuthData: (token: string, user: { full_name: string; email: string }) => void;
+  setAuthData: (jwtToken: string, roleToken: string, refreshToken : string, user: { full_name: string; email: string }) => void;
 };
 
 export const useAuthStore = create<AuthState>()(
   persist(
     (set) => ({
-      token: null,
+      jwtToken: null,
+      roleToken: null,
+      refreshToken: null,
       user: null,
       isAuthenticated: false,
-      setAuthData: (token, user) => {
+      setAuthData: (jwtToken, roleToken, refreshToken, user) => {
         set(
           produce((state) => {
-            state.token = token;
+            state.jwtToken = jwtToken;
+            state.roleToken = roleToken;
+            state.refreshToken = refreshToken;
             state.user = user;
-            state.isAuthenticated = !!token;
+            state.isAuthenticated = !!jwtToken;
           })
         );
       },
