@@ -491,12 +491,27 @@ const SignUpForm = () => {
     });
   };
 
+  // Password validation
+  const validatePassword = (password: string): string | null => {
+    if (!password) return 'The password field is empty.';
+    if (typeof password !== 'string') return 'Password must be a string.';
+    if (password.length < 6) return 'The password should exceed 5 characters.';
+    if (password.length > 14) return 'The password should not exceed 14 characters.';
+    return null;
+  };
+
   // Form submission handler
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(''); // Clear previous errors
 
-    // Client-side validation
+    // Client-side validation for password and confirmPassword
+    const passwordError = validatePassword(formData.password);
+    if (passwordError) {
+      setError(passwordError);
+      return;
+    }
+
     if (formData.password !== formData.confirmPassword) {
       setError('Passwords do not match');
       return;
