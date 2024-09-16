@@ -45,11 +45,11 @@ type AuthState = {
   roleToken: string | null;
   refreshToken: string | null;
   user: {
-    full_name: string;
+    full_name?: string;
     email: string;
   } | null;
   isAuthenticated: boolean;
-  setAuthData: (jwtToken: string, roleToken: string, refreshToken : string, user: { full_name: string; email: string }) => void;
+  setAuthData: (jwtToken: string, roleToken: string, refreshToken : string, user: { full_name?: string; email: string }) => void;
 };
 
 export const useAuthStore = create<AuthState>()(
