@@ -64,15 +64,15 @@ const CreateProduct = () => {
       data.append('userId', userId);
   
       // Log all form data before sending
-      for (let [key, value] of data.entries()) {
-        console.log(`${key}:`, value);
-      }
+      // for (let [key, value] of data.entries()) {
+      //   console.log(`${key}:`, value);
+      // }
   
-      await axios.post('https://backend-herbal.onrender.com/products', data, {
+     const res = await axios.post('https://backend-herbal.onrender.com/products', data, {
         headers: { 'Content-Type': 'multipart/form-data' },
         withCredentials: true,
       });
-  
+      console.log(res)
       setStatus({ submitting: false, error: null, success: true });
     } catch (err) {
       setStatus({ submitting: false, error: err.message, success: false });
