@@ -47,6 +47,7 @@ const SignUpForm = () => {
     } catch (err) {
       if (err.response) {
         const { message } = err.response.data;
+        console.log(message)
         setError(message || 'An error occurred. Please try again.');
       } else {
         setError('An error occurred. Please check your internet connection.');
