@@ -34,48 +34,31 @@ const SignUpForm = () => {
     return null;
   };
 
-  // Form submission handler
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError(''); // Clear previous errors
-
-    // Client-side validation for password and confirmPassword
-    const passwordError = validatePassword(formData.password);
-    if (passwordError) {
-      setError(passwordError);
-      return;
-    }
-
-
-
+    setError('');
     setIsSubmitting(true);
-
-    try {
-      // Make POST request to backend using axios
   
-      const response = await axios.post('https://backend-herbal.onrender.com/user/login', formData, {
-                  withCredentials: true, 
-                  headers: {
-                    'Content-Type': 'application/json'
-                  }
-                });
-            
-
-      // Set token and user in Zustand store if the request is successful
+    try {
+      console.log(formData); // Check form data before sending
+      const response = await axios.post(
+        'https://backend-herbal.onrender.com/user/login',
+        formData, {
+          withCredentials: true, // Allows cookie handling
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+  
+      console.log(response.data); // Check backend response structure
       let res = response.data;
       setAuthData(res.jwtTokens, res.roleToken, res.refreshToken, formData);
-      navigate('/')
+      navigate('/');
     } catch (err) {
-      // Handle error responses from backend
       if (err.response) {
         const { message, statusCode } = err.response.data;
-
-        // Handle 401 errors explicitly (user already exists case)
-        if (statusCode === 401 && message === "The user already exists!") {
-          setError('The user already exists. Please use a different email.');
-        } else {
-          setError(message || 'An error occurred. Please try again.');
-        }
+        setError(message || 'An error occurred. Please try again.');
       } else {
         setError('An error occurred. Please check your internet connection.');
       }
@@ -83,6 +66,7 @@ const SignUpForm = () => {
       setIsSubmitting(false);
     }
   };
+  
 
   // Ensure the component does not crash and still returns JSX even in error scenarios
   return (
