@@ -35,48 +35,26 @@ const TableOne = () => {
         Products
       </h4>
 
-      <div className="flex flex-col">
-        {/* <div className="grid grid-cols-3 rounded-sm bg-gray-2 dark:bg-meta-4 sm:grid-cols-5">
-          <div className="p-2.5 xl:p-5">
-            <h5 className="text-sm font-medium uppercase xsm:text-base">Img</h5>
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 rounded-sm bg-gray-2 dark:bg-meta-4 gap-2 p-1">
+            <div className="flex items-center justify-center p-1 text-xs xl:text-sm">
+              <h5 className="font-medium uppercase">Img</h5>
+            </div>
+            <div className="flex items-center justify-center p-1 text-xs xl:text-sm">
+              <h5 className="font-medium uppercase">Name</h5>
+            </div>
+            <div className="flex items-center justify-center p-1 text-xs xl:text-sm">
+              <h5 className="font-medium uppercase">Price</h5>
+            </div>
+            <div className="flex items-center justify-center p-1 text-xs xl:text-sm">
+              <h5 className="font-medium uppercase">Q</h5>
+            </div>
+            <div className="hidden md:flex items-center justify-center p-1 text-xs xl:text-sm">
+              <h5 className="font-medium uppercase">Category</h5>
+            </div>
+            <div className="hidden md:flex items-center justify-center p-1 text-xs xl:text-sm">
+              <h5 className="font-medium uppercase">Desc</h5>
+            </div>
           </div>
-          <div className="p-2.5 xl:p-5">
-            <h5 className="text-sm font-medium uppercase xsm:text-base">Name</h5>
-          </div>
-          <div className="p-2.5 text-center xl:p-5">
-            <h5 className="text-sm font-medium uppercase xsm:text-base">Price</h5>
-          </div>
-          <div className="p-2.5 text-center xl:p-5">
-            <h5 className="text-sm font-medium uppercase xsm:text-base">Q</h5>
-          </div>
-          <div className="hidden p-2.5 text-center sm:block xl:p-5">
-            <h5 className="text-sm font-medium uppercase xsm:text-base">Category</h5>
-          </div>
-          <div className="hidden p-2.5 text-center sm:block xl:p-5">
-            <h5 className="text-sm font-medium uppercase xsm:text-base">Desc</h5>
-          </div>
-        </div> */}
-        <div className="grid grid-cols-3 rounded-sm bg-gray-2 dark:bg-meta-4 sm:grid-cols-5">
-          <div className="p-1.5 xl:p-3 w-16">
-            <h5 className="text-xs font-medium uppercase">Img</h5>
-          </div>
-          <div className="p-1.5 xl:p-3 w-24">
-            <h5 className="text-xs font-medium uppercase">Name</h5>
-          </div>
-          <div className="p-1.5 xl:p-3 text-center w-20">
-            <h5 className="text-xs font-medium uppercase">Price</h5>
-          </div>
-          <div className="p-1.5 xl:p-3 text-center w-12">
-            <h5 className="text-xs font-medium uppercase">Q</h5>
-          </div>
-          <div className="hidden p-1.5 xl:p-3 text-center sm:block w-24">
-            <h5 className="text-xs font-medium uppercase">Category</h5>
-          </div>
-          <div className="hidden p-1.5 xl:p-3 text-center sm:block w-24">
-            <h5 className="text-xs font-medium uppercase">Desc</h5>
-          </div>
-        </div>
-
 
 
         {products.map((product, key) => (
