@@ -51,9 +51,9 @@ const TableOne = () => {
           <div className="hidden p-2.5 text-center sm:block xl:p-5">
             <h5 className="text-sm font-medium uppercase xsm:text-base">Category</h5>
           </div>
-          <div className="hidden p-2.5 text-center sm:block xl:p-5">
+          {/* <div className="hidden p-2.5 text-center sm:block xl:p-5">
             <h5 className="text-sm font-medium uppercase xsm:text-base">Description</h5>
-          </div>
+          </div> */}
         </div>
 
         {products.map((product, key) => (
@@ -95,9 +95,9 @@ const TableOne = () => {
               <p className="text-black dark:text-white">{product.category}</p>
             </div>
 
-            <div className="hidden items-center justify-center p-2.5 sm:flex xl:p-5">
+            {/* <div className="hidden items-center justify-center p-2.5 sm:flex xl:p-5">
               <p className="text-black dark:text-white">{product.description}</p>
-            </div>
+            </div> */}
           </div>
         ))}
       </div>
