@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Product } from '../../types/product'; // Adjust import path based on your project structure
+import { Link } from 'react-router-dom';
 
 const TableOne = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -57,7 +58,7 @@ const TableOne = () => {
         </div>
 
         {products.map((product, key) => (
-          <div
+          <Link to='/'
             className={`grid grid-cols-3 sm:grid-cols-5 ${
               key === products.length - 1
                 ? ''
@@ -98,7 +99,7 @@ const TableOne = () => {
             <div className="hidden items-center justify-center p-2.5 sm:flex xl:p-5">
               <p className="text-black dark:text-white">{product.description}</p>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>
