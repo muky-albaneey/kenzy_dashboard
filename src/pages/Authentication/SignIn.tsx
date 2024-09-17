@@ -467,6 +467,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useAuthStore } from '../../store/auth';
+import { useNavigate } from 'react-router-dom';
 // import { useAuthStore } from './authStore'; // Import zustand store
 
 const SignUpForm = () => {
@@ -479,7 +480,7 @@ const SignUpForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   
   const setAuthData = useAuthStore((state) => state.setAuthData);
-
+  const navigate = useNavigate();
   // Handle input change
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -528,10 +529,7 @@ const SignUpForm = () => {
       // Set token and user in Zustand store if the request is successful
       let res = response.data;
       setAuthData(res.jwtTokens, res.roleToken, res.refreshToken, formData);
-      console.log(response)
-      console.log(res.message);        // 'User created successfully'
-      console.log(res.jwtTokens);      // JWT token
-      console.log(res.roleToken);      // Role token
+      navigate('/')
     } catch (err) {
       // Handle error responses from backend
       if (err.response) {

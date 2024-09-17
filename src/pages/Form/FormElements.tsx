@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useAuthStore } from '../../store/auth';
 import { decode } from 'jwt-js-decode';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
 const CreateProduct = () => {
   const [formData, setFormData] = useState({
@@ -16,7 +16,7 @@ const CreateProduct = () => {
   
   const [status, setStatus] = useState({ submitting: false, error: null, success: false });
   const jwtToken = useAuthStore((state) => state.jwtToken);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   // navigate('/'); 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, files } = e.target;
@@ -76,7 +76,7 @@ const CreateProduct = () => {
       });
       console.log(res)
       setStatus({ submitting: false, error: null, success: true });
-      navigate('/'); 
+      // navigate('/'); 
     } catch (err) {
       setStatus({ submitting: false, error: err.message, success: false });
     }

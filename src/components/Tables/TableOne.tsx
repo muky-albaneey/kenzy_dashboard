@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Product } from '../../types/product'; // Adjust import path based on your project structure
-import { Link } from 'react-router-dom';
 
 const TableOne = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
- 
+
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -35,30 +34,30 @@ const TableOne = () => {
         Products
       </h4>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 rounded-sm bg-gray-2 dark:bg-meta-4 gap-2 p-1">
-            <div className="flex items-center justify-center p-1 text-xs xl:text-sm">
-              <h5 className="font-medium uppercase">Img</h5>
-            </div>
-            <div className="flex items-center justify-center p-1 text-xs xl:text-sm">
-              <h5 className="font-medium uppercase">Name</h5>
-            </div>
-            <div className="flex items-center justify-center p-1 text-xs xl:text-sm">
-              <h5 className="font-medium uppercase">Price</h5>
-            </div>
-            <div className="flex items-center justify-center p-1 text-xs xl:text-sm">
-              <h5 className="font-medium uppercase">Q</h5>
-            </div>
-            <div className="hidden md:flex items-center justify-center p-1 text-xs xl:text-sm">
-              <h5 className="font-medium uppercase">Category</h5>
-            </div>
-            <div className="hidden md:flex items-center justify-center p-1 text-xs xl:text-sm">
-              <h5 className="font-medium uppercase">Desc</h5>
-            </div>
+      <div className="flex flex-col">
+        <div className="grid grid-cols-3 rounded-sm bg-gray-2 dark:bg-meta-4 sm:grid-cols-5">
+          <div className="p-2.5 xl:p-5">
+            <h5 className="text-sm font-medium uppercase xsm:text-base">Image</h5>
           </div>
-
+          <div className="p-2.5 xl:p-5">
+            <h5 className="text-sm font-medium uppercase xsm:text-base">Name</h5>
+          </div>
+          <div className="p-2.5 text-center xl:p-5">
+            <h5 className="text-sm font-medium uppercase xsm:text-base">Price</h5>
+          </div>
+          <div className="p-2.5 text-center xl:p-5">
+            <h5 className="text-sm font-medium uppercase xsm:text-base">Quantity</h5>
+          </div>
+          <div className="hidden p-2.5 text-center sm:block xl:p-5">
+            <h5 className="text-sm font-medium uppercase xsm:text-base">Category</h5>
+          </div>
+          <div className="hidden p-2.5 text-center sm:block xl:p-5">
+            <h5 className="text-sm font-medium uppercase xsm:text-base">Description</h5>
+          </div>
+        </div>
 
         {products.map((product, key) => (
-          <Link to='/'
+          <div
             className={`grid grid-cols-3 sm:grid-cols-5 ${
               key === products.length - 1
                 ? ''
@@ -99,7 +98,7 @@ const TableOne = () => {
             <div className="hidden items-center justify-center p-2.5 sm:flex xl:p-5">
               <p className="text-black dark:text-white">{product.description}</p>
             </div>
-          </Link>
+          </div>
         ))}
       </div>
     </div>
