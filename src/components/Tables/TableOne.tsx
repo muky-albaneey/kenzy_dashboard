@@ -7,7 +7,7 @@ const TableOne = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
+ 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
