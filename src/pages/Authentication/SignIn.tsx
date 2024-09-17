@@ -30,6 +30,8 @@ const SignUpForm = () => {
     setIsSubmitting(true);
 
     try {
+      console.log( formData.email, formData.password);
+      
       const response = await axios.post(
         'https://backend-herbal.onrender.com/user/login',
         { email: formData.email, password: formData.password }, // Only sending email and password
