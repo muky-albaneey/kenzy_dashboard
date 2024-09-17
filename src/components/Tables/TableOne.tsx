@@ -57,22 +57,22 @@ const TableOne = () => {
           </div>
         </div> */}
         <div className="grid grid-cols-3 rounded-sm bg-gray-2 dark:bg-meta-4 sm:grid-cols-5">
-          <div className="p-2.5 xl:p-5">
+          <div className="p-1.5 xl:p-3">
             <h5 className="text-xs font-medium uppercase">Img</h5>
           </div>
-          <div className="p-2.5 xl:p-5">
+          <div className="p-1.5 xl:p-3">
             <h5 className="text-xs font-medium uppercase">Name</h5>
           </div>
-          <div className="p-2.5 text-center xl:p-5">
+          <div className="p-1.5 xl:p-3 text-center ">
             <h5 className="text-xs font-medium uppercase">Price</h5>
           </div>
-          <div className="p-2.5 text-center xl:p-5">
+          <div className="p-1.5 xl:p-3text-center">
             <h5 className="text-xs font-medium uppercase">Q</h5>
           </div>
-          <div className="hidden p-2.5 text-center sm:block xl:p-5">
+          <div className="hidden p-1.5 xl:p-3 text-center sm:block ">
             <h5 className="text-xs font-medium uppercase">Category</h5>
           </div>
-          <div className="hidden p-2.5 text-center sm:block xl:p-5">
+          <div className="hidden p-1.5 xl:p-3 text-center sm:block ">
             <h5 className="text-xs font-medium uppercase">Desc</h5>
           </div>
         </div>
