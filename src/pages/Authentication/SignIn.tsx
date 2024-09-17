@@ -7,6 +7,7 @@ const SignUpForm = () => {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
+    confirmPassword: '', // Added confirmPassword field
   });
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -24,11 +25,12 @@ const SignUpForm = () => {
   };
 
   // Password validation
-  const validatePassword = (password: string): string | null => {
+  const validatePassword = (password: string, confirmPassword: string): string | null => {
     if (!password) return 'The password field is empty.';
     if (typeof password !== 'string') return 'Password must be a string.';
     if (password.length < 6) return 'The password should exceed 5 characters.';
     if (password.length > 14) return 'The password should not exceed 14 characters.';
+    if (password !== confirmPassword) return 'Passwords do not match.';
     return null;
   };
 
@@ -38,10 +40,18 @@ const SignUpForm = () => {
     setError('');
     setIsSubmitting(true);
 
+    // Validate the password
+    const validationError = validatePassword(formData.password, formData.confirmPassword);
+    if (validationError) {
+      setError(validationError);
+      setIsSubmitting(false);
+      return;
+    }
+
     try {
       const response = await axios.post(
         'https://backend-herbal.onrender.com/user/login',
-        formData,
+        { email: formData.email, password: formData.password }, // Only sending email and password
         {
           withCredentials: true, // Ensures cookies are included
           headers: {
@@ -55,7 +65,7 @@ const SignUpForm = () => {
       navigate('/');
     } catch (err) {
       if (err.response) {
-        const { message, statusCode } = err.response.data;
+        const { message } = err.response.data;
         setError(message || 'An error occurred. Please try again.');
       } else {
         setError('An error occurred. Please check your internet connection.');
@@ -92,6 +102,20 @@ const SignUpForm = () => {
               name="password"
               placeholder="Enter your password"
               value={formData.password}
+              onChange={handleChange}
+              className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white"
+            />
+          </div>
+        </div>
+
+        <div className="mb-4">
+          <label className="mb-2.5 block font-medium text-black dark:text-white">Confirm Password</label>
+          <div className="relative">
+            <input
+              type="password"
+              name="confirmPassword"
+              placeholder="Confirm your password"
+              value={formData.confirmPassword}
               onChange={handleChange}
               className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white"
             />
