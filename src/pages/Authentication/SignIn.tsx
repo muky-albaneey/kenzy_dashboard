@@ -23,15 +23,30 @@ const SignUpForm = () => {
     });
   };
 
+  // Simplified password validation (removed confirmPassword)
+  const validatePassword = (password: string): string | null => {
+    if (!password) return 'The password field is empty.';
+    if (typeof password !== 'string') return 'Password must be a string.';
+    if (password.length < 6) return 'The password should exceed 5 characters.';
+    if (password.length > 14) return 'The password should not exceed 14 characters.';
+    return null;
+  };
+
   // Form submission handler
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
     setIsSubmitting(true);
 
+    // Validate the password
+    const validationError = validatePassword(formData.password);
+    if (validationError) {
+      setError(validationError);
+      setIsSubmitting(false);
+      return;
+    }
+
     try {
-      console.log( formData.email, formData.password);
-      
       const response = await axios.post(
         'https://backend-herbal.onrender.com/user/login',
         { email: formData.email, password: formData.password }, // Only sending email and password
@@ -49,7 +64,6 @@ const SignUpForm = () => {
     } catch (err) {
       if (err.response) {
         const { message } = err.response.data;
-        console.log(message)
         setError(message || 'An error occurred. Please try again.');
       } else {
         setError('An error occurred. Please check your internet connection.');
