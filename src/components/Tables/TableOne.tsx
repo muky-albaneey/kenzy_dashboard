@@ -36,9 +36,9 @@ const TableOne = () => {
       </h4>
 
       <div className="flex flex-col">
-        <div className="grid grid-cols-3 rounded-sm bg-gray-2 dark:bg-meta-4 sm:grid-cols-5">
+        {/* <div className="grid grid-cols-3 rounded-sm bg-gray-2 dark:bg-meta-4 sm:grid-cols-5">
           <div className="p-2.5 xl:p-5">
-            <h5 className="text-sm font-medium uppercase xsm:text-base">Image</h5>
+            <h5 className="text-sm font-medium uppercase xsm:text-base">Img</h5>
           </div>
           <div className="p-2.5 xl:p-5">
             <h5 className="text-sm font-medium uppercase xsm:text-base">Name</h5>
@@ -47,15 +47,36 @@ const TableOne = () => {
             <h5 className="text-sm font-medium uppercase xsm:text-base">Price</h5>
           </div>
           <div className="p-2.5 text-center xl:p-5">
-            <h5 className="text-sm font-medium uppercase xsm:text-base">Quantity</h5>
+            <h5 className="text-sm font-medium uppercase xsm:text-base">Q</h5>
           </div>
           <div className="hidden p-2.5 text-center sm:block xl:p-5">
             <h5 className="text-sm font-medium uppercase xsm:text-base">Category</h5>
           </div>
           <div className="hidden p-2.5 text-center sm:block xl:p-5">
-            <h5 className="text-sm font-medium uppercase xsm:text-base">Description</h5>
+            <h5 className="text-sm font-medium uppercase xsm:text-base">Desc</h5>
+          </div>
+        </div> */}
+        <div className="grid grid-cols-3 rounded-sm bg-gray-2 dark:bg-meta-4 sm:grid-cols-5">
+          <div className="p-2.5 xl:p-5">
+            <h5 className="text-xs font-medium uppercase">Img</h5>
+          </div>
+          <div className="p-2.5 xl:p-5">
+            <h5 className="text-xs font-medium uppercase">Name</h5>
+          </div>
+          <div className="p-2.5 text-center xl:p-5">
+            <h5 className="text-xs font-medium uppercase">Price</h5>
+          </div>
+          <div className="p-2.5 text-center xl:p-5">
+            <h5 className="text-xs font-medium uppercase">Q</h5>
+          </div>
+          <div className="hidden p-2.5 text-center sm:block xl:p-5">
+            <h5 className="text-xs font-medium uppercase">Category</h5>
+          </div>
+          <div className="hidden p-2.5 text-center sm:block xl:p-5">
+            <h5 className="text-xs font-medium uppercase">Desc</h5>
           </div>
         </div>
+
 
         {products.map((product, key) => (
           <Link to='/'
