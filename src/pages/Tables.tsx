@@ -13,7 +13,7 @@ const Tables = () => {
 
   React.useEffect(() => {
     if (!isAuthenticated) {
-      navigate('/auth/signin');
+      navigate('/auth/signup');
     }
   }, [isAuthenticated, navigate]);
 

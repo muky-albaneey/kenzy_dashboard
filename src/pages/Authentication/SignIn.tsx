@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useAuthStore } from '../../store/auth';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const SignUpForm = () => {
   const [formData, setFormData] = useState({
@@ -117,6 +117,14 @@ const SignUpForm = () => {
           {isSubmitting ? 'Submitting...' : 'Submit'}
         </button>
       </form>
+      <div className="mt-4 text-center">
+        <p className="text-gray-600 dark:text-gray-400">
+          Don't have an account?{' '}
+          <Link to="/auth/signup" className="text-blue-500 hover:underline">
+            Sign Up
+          </Link>
+        </p>
+      </div>
     </div>
   );
 };

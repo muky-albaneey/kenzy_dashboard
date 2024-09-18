@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useAuthStore } from '../../store/auth';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 // import { useAuthStore } from './authStore'; // Import zustand store
 
 const SignUpForm = () => {
@@ -160,6 +160,14 @@ const SignUpForm = () => {
           {isSubmitting ? 'Submitting...' : 'Submit'}
         </button>
       </form>
+      <div className="mt-4 text-center">
+        <p className="text-gray-600 dark:text-gray-400">
+          Already have an account?{' '}
+          <Link to="/auth/signin" className="text-blue-500 hover:underline">
+            Sign In
+          </Link>
+        </p>
+      </div>
     </div>
   );
 };
