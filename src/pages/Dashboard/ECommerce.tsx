@@ -2,8 +2,21 @@ import React from 'react';
 import CardDataStats from '../../components/CardDataStats';
 import ChartOne from '../../components/Charts/ChartOne';
 import ChartTwo from '../../components/Charts/ChartTwo';
+import { useNavigate } from 'react-router-dom';
+import { useAuthStore } from '../../store/auth';
 
 const ECommerce: React.FC = () => {
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  const navigate = useNavigate();
+
+  React.useEffect(() => {
+    if (!isAuthenticated) {
+      navigate('/auth/signin');
+    }
+  }, [isAuthenticated, navigate]);
+
+  // If not authenticated, you might want to return null or a loading state
+  if (!isAuthenticated) return null; 
   return (
     <>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">

@@ -19,7 +19,14 @@ const CreateProduct = () => {
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
   const navigate = useNavigate();
 
-  if (!isAuthenticated)   navigate('/auth/signin'); 
+  React.useEffect(() => {
+    if (!isAuthenticated) {
+      navigate('/auth/signin');
+    }
+  }, [isAuthenticated, navigate]);
+
+  // If not authenticated, you might want to return null or a loading state
+  if (!isAuthenticated) return null; 
  
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, files } = e.target;
