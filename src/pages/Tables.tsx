@@ -10,7 +10,7 @@ const Tables = () => {
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
   const navigate = useNavigate();
 
-  if (!isAuthenticated)   navigate('/auth/signin'); 
+  if (!isAuthenticated)   return navigate('/auth/signin'); 
   return (
     <>
       <Breadcrumb pageName="Tables" />
