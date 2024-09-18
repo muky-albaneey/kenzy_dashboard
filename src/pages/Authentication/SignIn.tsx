@@ -59,7 +59,10 @@ const SignUpForm = () => {
       );
       
       const res = response.data;
-      setAuthData(res.jwtTokens, res.roleToken, res.refreshToken, formData);
+      // Destructure to exclude password
+      const { password, ...rest } = formData;
+      console.log(rest)
+      setAuthData(res.jwtTokens, res.roleToken, res.refreshToken, rest);
       navigate('/');
     } catch (err) {
       if (err.response) {
