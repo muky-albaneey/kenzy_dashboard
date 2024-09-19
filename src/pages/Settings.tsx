@@ -352,7 +352,7 @@ const Settings = () => {
                       src={`data:image/png;base64,${product.product_image.base64}`}
                       alt={product.name}
                       className="my-4 rounded"
-                      style={{ height:'28%', width:'100%' }}
+                      style={{ height:'5rem', width:'100%' }}
                     />
                     <p><strong>Price:</strong> {product.price}</p>
                     <p><strong>Quantity:</strong> {product.quantity}</p>
