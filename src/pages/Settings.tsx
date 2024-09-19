@@ -312,10 +312,11 @@
 import React, { useEffect, useState } from 'react';
 import Breadcrumb from '../components/Breadcrumbs/Breadcrumb';
 import userThree from '../images/user/user-03.png';
-
+import { useSearchParams, useParams} from "react-router-dom";
 const Settings = () => {
   const [product, setProduct] = useState(null);
-
+  let { id } = useParams();
+  console.log(900,id)
   useEffect(() => {
     const fetchProduct = async () => {
       try {
