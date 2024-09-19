@@ -68,6 +68,7 @@ const TableOne = () => {
             key={product.id}
           >
             {/* {key} */}
+            <h1>{product.id}</h1>
             <div className="flex items-center justify-center p-2.5 xl:p-5">
               {product.product_image.base64 ? (
                 <img
