@@ -309,28 +309,26 @@
 // };
 
 // export default Settings;
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Breadcrumb from '../components/Breadcrumbs/Breadcrumb';
 import userThree from '../images/user/user-03.png';
 
 const Settings = () => {
   const [product, setProduct] = useState(null);
-  const productId = '98e7d626-1029-4534-a71b-9a605991e871'; // Use dynamic ID as needed
 
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await fetch(`https://backend-herbal.onrender.com/products/${productId}`);
-        if (!response.ok) throw new Error('Network response was not ok');
+        const response = await fetch('https://backend-herbal.onrender.com/products/98e7d626-1029-4534-a71b-9a605991e871');
         const data = await response.json();
         setProduct(data);
       } catch (error) {
-        console.error('Failed to fetch product:', error);
+        console.error('Error fetching product:', error);
       }
     };
 
     fetchProduct();
-  }, [productId]);
+  }, []);
 
   return (
     <>
@@ -342,69 +340,31 @@ const Settings = () => {
             <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
               <div className="border-b border-stroke py-4 px-7 dark:border-strokedark">
                 <h3 className="font-medium text-black dark:text-white">
-                  Personal Information
+                  Product Information
                 </h3>
               </div>
               <div className="p-7">
-                <form action="#">
-                  {/* Existing form fields */}
-                  <div className="mb-5.5">
-                    <label className="mb-3 block text-sm font-medium text-black dark:text-white">
-                      Product Name
-                    </label>
-                    {product && (
-                      <input
-                        className="w-full rounded border border-stroke bg-gray py-3 px-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
-                        type="text"
-                        value={product.name}
-                        readOnly
-                      />
-                    )}
+                {product ? (
+                  <div>
+                    <h4 className="text-lg font-semibold">{product.name}</h4>
+                    <img
+                      src={`data:image/png;base64,${product.product_image.base64}`}
+                      alt={product.name}
+                      className="my-4 rounded"
+                    />
+                    <p><strong>Price:</strong> {product.price}</p>
+                    <p><strong>Quantity:</strong> {product.quantity}</p>
+                    <p><strong>Category:</strong> {product.category}</p>
+                    <p><strong>Description:</strong> {product.description}</p>
+                    <p><strong>Created At:</strong> {new Date(product.createdAt).toLocaleString()}</p>
                   </div>
-                  <div className="mb-5.5">
-                    <label className="mb-3 block text-sm font-medium text-black dark:text-white">
-                      Price
-                    </label>
-                    {product && (
-                      <input
-                        className="w-full rounded border border-stroke bg-gray py-3 px-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
-                        type="text"
-                        value={product.price}
-                        readOnly
-                      />
-                    )}
-                  </div>
-                  <div className="mb-5.5">
-                    <label className="mb-3 block text-sm font-medium text-black dark:text-white">
-                      Description
-                    </label>
-                    {product && (
-                      <textarea
-                        className="w-full rounded border border-stroke bg-gray py-3 pl-11.5 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
-                        value={product.description}
-                        readOnly
-                      />
-                    )}
-                  </div>
-                  {/* Add more fields as needed */}
-                  <div className="flex justify-end gap-4.5">
-                    <button
-                      className="flex justify-center rounded border border-stroke py-2 px-6 font-medium text-black hover:shadow-1 dark:border-strokedark dark:text-white"
-                      type="button"
-                    >
-                      Cancel
-                    </button>
-                    <button
-                      className="flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:bg-opacity-90"
-                      type="submit"
-                    >
-                      Save
-                    </button>
-                  </div>
-                </form>
+                ) : (
+                  <p>Loading product information...</p>
+                )}
               </div>
             </div>
           </div>
+
           <div className="col-span-5 xl:col-span-2">
             <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
               <div className="border-b border-stroke py-4 px-7 dark:border-strokedark">
@@ -413,22 +373,29 @@ const Settings = () => {
                 </h3>
               </div>
               <div className="p-7">
-                {/* Your photo upload form here */}
-                <div className="mb-4 flex items-center gap-3">
-                  <div className="h-14 w-14 rounded-full">
-                    <img src={userThree} alt="User" />
+                <form action="#">
+                  <div className="mb-4 flex items-center gap-3">
+                    <div className="h-14 w-14 rounded-full">
+                      <img src={userThree} alt="User" />
+                    </div>
+                    <div>
+                      <span className="mb-1.5 text-black dark:text-white">
+                        Edit your photo
+                      </span>
+                      <span className="flex gap-2.5">
+                        <button className="text-sm hover:text-primary">
+                          Delete
+                        </button>
+                        <button className="text-sm hover:text-primary">
+                          Update
+                        </button>
+                      </span>
+                    </div>
                   </div>
-                  <div>
-                    <span className="mb-1.5 text-black dark:text-white">
-                      Edit your photo
-                    </span>
-                    <span className="flex gap-2.5">
-                      <button className="text-sm hover:text-primary">Delete</button>
-                      <button className="text-sm hover:text-primary">Update</button>
-                    </span>
-                  </div>
-                </div>
-                {/* Add more fields for the photo upload */}
+
+                  {/* Your file upload section... */}
+
+                </form>
               </div>
             </div>
           </div>
