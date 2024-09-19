@@ -320,7 +320,7 @@ const Settings = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await fetch('https://backend-herbal.onrender.com/products/98e7d626-1029-4534-a71b-9a605991e871');
+        const response = await fetch(`https://backend-herbal.onrender.com/products/${id}`);
         const data = await response.json();
         setProduct(data);
       } catch (error) {
@@ -352,7 +352,7 @@ const Settings = () => {
                       src={`data:image/png;base64,${product.product_image.base64}`}
                       alt={product.name}
                       className="my-4 rounded"
-                      style={{ height:'40%' }}
+                      style={{ height:'28%', width:'100%' }}
                     />
                     <p><strong>Price:</strong> {product.price}</p>
                     <p><strong>Quantity:</strong> {product.quantity}</p>
