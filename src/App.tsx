@@ -84,10 +84,10 @@ function App() {
           }
         /> */}
         <Route
-          path="/settings"
+          path="/:id/products"
           element={
             <>
-              <PageTitle title="Settings | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <PageTitle title="Settings | Kenzy dashboard" />
               <Settings />
             </>
           }
