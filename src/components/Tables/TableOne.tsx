@@ -59,7 +59,7 @@ const TableOne = () => {
         </div>
 
         {products.map((product, key) => (
-          <Link to={``}
+          <Link to=''
             className={`grid grid-cols-3 sm:grid-cols-5 ${
               key === products.length - 1
                 ? ''
@@ -67,7 +67,7 @@ const TableOne = () => {
             }`}
             key={product.id}
           >
-            {key}
+            {/* {key} */}
             <div className="flex items-center justify-center p-2.5 xl:p-5">
               {product.product_image.base64 ? (
                 <img
