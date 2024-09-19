@@ -59,7 +59,7 @@ const TableOne = () => {
         </div>
 
         {products.map((product, key) => (
-          <Link to={`/${product.id}/prooduct`}
+          <Link to={`/${product.id}/product`}
             className={`grid grid-cols-3 sm:grid-cols-5 ${
               key === products.length - 1
                 ? ''
