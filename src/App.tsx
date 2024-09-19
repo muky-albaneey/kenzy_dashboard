@@ -84,7 +84,7 @@ function App() {
           }
         /> */}
         <Route
-          path="/:id/products"
+          path="/:id/product"
           element={
             <>
               <PageTitle title="Settings | Kenzy dashboard" />
