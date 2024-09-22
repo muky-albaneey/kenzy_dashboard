@@ -8,17 +8,17 @@ import React from 'react';
 
 const Tables = () => {
 
-  // const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
-  // const navigate = useNavigate();
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  const navigate = useNavigate();
 
-  // React.useEffect(() => {
-  //   if (!isAuthenticated) {
-  //     navigate('/auth/signup');
-  //   }
-  // }, [isAuthenticated, navigate]);
+  React.useEffect(() => {
+    if (!isAuthenticated) {
+      navigate('/auth/signup');
+    }
+  }, [isAuthenticated, navigate]);
 
-  // // If not authenticated, you might want to return null or a loading state
-  // if (!isAuthenticated) return null; 
+  // If not authenticated, you might want to return null or a loading state
+  if (!isAuthenticated) return null; 
   return (
     <>
       <Breadcrumb pageName="Tables" />

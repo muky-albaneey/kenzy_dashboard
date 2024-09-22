@@ -1,11 +1,12 @@
 // export default Settings;
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import Breadcrumb from '../components/Breadcrumbs/Breadcrumb';
 import userThree from '../images/user/user-03.png';
 
 const Settings = () => {
+  const navigate = useNavigate();
   const [product, setProduct] = useState(null);
   const { id } = useParams(); 
   const [imageFile, setImageFile] = useState(null);
@@ -40,6 +41,7 @@ const Settings = () => {
 
   const handleFileChange = (event) => {
     setImageFile(event.target.files[0]);
+
   };
 
   const handleUpdateImage = async () => {
@@ -51,6 +53,8 @@ const Settings = () => {
     try {
       await axios.patch(`https://backend-herbal.onrender.com/products/${id}`, formDataImage);
       await fetchProductData();
+      window.location.reload();
+
     } catch (error) {
       console.error('Error updating image:', error);
     }
@@ -60,6 +64,7 @@ const Settings = () => {
     try {
       await axios.delete(`https://backend-herbal.onrender.com/products/${id}/image`);
       await fetchProductData();
+      window.location.reload();
     } catch (error) {
       console.error('Error deleting image:', error);
     }
@@ -99,6 +104,7 @@ const Settings = () => {
 
       await axios.patch(`https://backend-herbal.onrender.com/products/${id}`, updatedData);
       fetchProductData();
+      window.location.reload();
     } catch (error) {
       console.error('Error updating product info:', error);
     }
@@ -108,6 +114,7 @@ const Settings = () => {
     try {
       await axios.delete(`https://backend-herbal.onrender.com/products/${id}`);
       console.log('Product deleted');
+      navigate('/forms/tables');
       // Optionally redirect or show a message
     } catch (error) {
       console.error('Error deleting product:', error);
