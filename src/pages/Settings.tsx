@@ -17,105 +17,11 @@ const Settings = () => {
     description: '',
   });
 
-  // useEffect(() => {
-  //   const fetchProduct = async () => {
-  //     try {
-  //       const response = await axios.get(`https://backend-herbal.onrender.com/products/${id}`);
-  //       setProduct(response.data);
-  //       setFormData({
-  //         name: response.data.name,
-  //         price: response.data.price,
-  //         quantity: response.data.quantity,
-  //         category: response.data.category,
-  //         description: response.data.description,
-  //       });
-  //     } catch (error) {
-  //       console.error('Error fetching product:', error);
-  //     }
-  //   };
-
-  //   fetchProduct();
-  // }, [id]);
-
-  // const handleFileChange = (event) => {
-  //   setImageFile(event.target.files[0]);
-  // };
-
-  // const handleUpdateImage = async () => {
-  //   if (!imageFile) return;
-
-  //   const formDataImage = new FormData();
-  //   formDataImage.append('file', imageFile);
-
-  //   try {
-  //     await axios.patch(`https://backend-herbal.onrender.com/products/${id}`, formDataImage);
-  //     fetchProductData();
-  //   } catch (error) {
-  //     console.error('Error updating image:', error);
-  //   }
-  // };
-
-  // const handleDeleteImage = async () => {
-  //   try {
-  //     await axios.delete(`https://backend-herbal.onrender.com/products/${id}/image`);
-  //     fetchProductData();
-  //   } catch (error) {
-  //     console.error('Error deleting image:', error);
-  //   }
-  // };
-
-  // const fetchProductData = async () => {
-  //   try {
-  //     const response = await axios.get(`https://backend-herbal.onrender.com/products/${id}`);
-  //     setProduct(response.data);
-  //     setFormData({
-  //       name: response.data.name,
-  //       price: response.data.price,
-  //       quantity: response.data.quantity,
-  //       category: response.data.category,
-  //       description: response.data.description,
-  //     });
-  //   } catch (error) {
-  //     console.error('Error fetching product data:', error);
-  //   }
-
-  // };      
-
-  // const handleChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setFormData({ ...formData, [name]: value });
-  // };
-
-  // const handleUpdateInfo = async () => {
-  //   try {
-  //     const updatedData = { ...formData };
-  //     // Remove any empty fields to avoid sending unnecessary data
-  //     Object.keys(updatedData).forEach(key => {
-  //       if (updatedData[key] === '') {
-  //         delete updatedData[key];
-  //       }
-  //     });
-
-  //     await axios.patch(`https://backend-herbal.onrender.com/products/${id}`, updatedData);
-  //     fetchProductData();
-  //   } catch (error) {
-  //     console.error('Error updating product info:', error);
-  //   }
-  // };
-
-  // const handleDeleteProduct = async () => {
-  //   try {
-  //     await axios.delete(`https://backend-herbal.onrender.com/products/${id}`);
-  //     console.log('Product deleted');
-  //     // Optionally redirect or show a message
-  //   } catch (error) {
-  //     console.error('Error deleting product:', error);
-  //   }
-  // };
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await axios.get(`https://backend-herbal.onrender.com/products/${id}`);
+        const response = await axios.get(`https://backend-herbal.onrender.com/products/${id}`, 
+          { headers: { 'Cache-Control': 'no-cache' } } );
         setProduct(response.data);
         setFormData({
           name: response.data.name,
@@ -128,66 +34,37 @@ const Settings = () => {
         console.error('Error fetching product:', error);
       }
     };
-  
+
     fetchProduct();
-  }, [id]); // This will run whenever the `id` changes
-  
-  // Handle image update
+  }, [id, imageFile, product]);
+
+  const handleFileChange = (event) => {
+    setImageFile(event.target.files[0]);
+  };
+
   const handleUpdateImage = async () => {
     if (!imageFile) return;
-  
+
     const formDataImage = new FormData();
     formDataImage.append('file', imageFile);
-  
+
     try {
       await axios.patch(`https://backend-herbal.onrender.com/products/${id}`, formDataImage);
-      fetchProductData(); // Re-fetch product after updating the image
+      await fetchProductData();
     } catch (error) {
       console.error('Error updating image:', error);
     }
   };
-  
-  // Handle image delete
+
   const handleDeleteImage = async () => {
     try {
       await axios.delete(`https://backend-herbal.onrender.com/products/${id}/image`);
-      fetchProductData(); // Re-fetch product after deleting the image
+      await fetchProductData();
     } catch (error) {
       console.error('Error deleting image:', error);
     }
   };
-  
-  // Handle product info update
-  const handleUpdateInfo = async () => {
-    try {
-      const updatedData = { ...formData };
-      // Remove empty fields
-      Object.keys(updatedData).forEach(key => {
-        if (updatedData[key] === '') {
-          delete updatedData[key];
-        }
-      });
-  
-      await axios.patch(`https://backend-herbal.onrender.com/products/${id}`, updatedData);
-      fetchProductData(); // Re-fetch product after updating product info
-    } catch (error) {
-      console.error('Error updating product info:', error);
-    }
-  };
-  
-  // Handle product delete
-  const handleDeleteProduct = async () => {
-    try {
-      await axios.delete(`https://backend-herbal.onrender.com/products/${id}`);
-      console.log('Product deleted');
-      // Optionally redirect or show a message after deletion
-      // e.g., navigate to another page or clear the state
-    } catch (error) {
-      console.error('Error deleting product:', error);
-    }
-  };
-  
-  // Re-fetch product details function
+
   const fetchProductData = async () => {
     try {
       const response = await axios.get(`https://backend-herbal.onrender.com/products/${id}`);
@@ -202,7 +79,43 @@ const Settings = () => {
     } catch (error) {
       console.error('Error fetching product data:', error);
     }
+
+  };      
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
   };
+
+  const handleUpdateInfo = async () => {
+    try {
+      const updatedData = { ...formData };
+      // Remove any empty fields to avoid sending unnecessary data
+      Object.keys(updatedData).forEach(key => {
+        if (updatedData[key] === '') {
+          delete updatedData[key];
+        }
+      });
+
+      await axios.patch(`https://backend-herbal.onrender.com/products/${id}`, updatedData);
+      fetchProductData();
+    } catch (error) {
+      console.error('Error updating product info:', error);
+    }
+  };
+
+  const handleDeleteProduct = async () => {
+    try {
+      await axios.delete(`https://backend-herbal.onrender.com/products/${id}`);
+      console.log('Product deleted');
+      // Optionally redirect or show a message
+    } catch (error) {
+      console.error('Error deleting product:', error);
+    }
+  };
+
+  
+
   
   return (
     <>
