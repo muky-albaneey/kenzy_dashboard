@@ -26,7 +26,7 @@ const ECommerce: React.FC = () => {
           throw new Error('Failed to fetch product count');
         }
         const data = await response.json();
-        console.log(data.count)
+        console.log(data)
         setProductCount(data.count);
         console.log(productCount)
       } catch (error) {
